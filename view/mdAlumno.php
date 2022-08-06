@@ -11,15 +11,15 @@
                 <table class="table table-borderless text-end">
                     <tr>
                         <td>DNI DEL ALUMNO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el dni del alumno" v-model="alumno['dniAlu']" required></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el dni del alumno" v-model="alumno['dniAlu']" required maxlength="8"></td>
                     </tr>
                     <tr>
                         <td>NOMBRES DEL ALUMNO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el NOMBRES del alumno" v-model="alumno['nombAlu']" required></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el NOMBRES del alumno" v-model="alumno['nombAlu']" required maxlength="60"></td>
                     </tr>
                     <tr>
                         <td>APELLIDOS DEL ALUMNO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el APELLIDOS del alumno" v-model="alumno['apeAlu']" required></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el APELLIDOS del alumno" v-model="alumno['apeAlu']" required maxlength="60"></td>
                     </tr>
                     <tr>
                         <td>SEXO:</td>
@@ -44,19 +44,19 @@
                     </tr>
                     <tr>
                         <td>FOTO DEL ALUMNO:</td>
-                        <td><input type="file" class="form-control" accept="image/*" id="foto"></td>
+                        <td><input type="file" class="form-control" accept="image/*" id="foto" required="" ></td>
                     </tr>
                     <tr>
                         <td>DNI DEL APODERADO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el dni del APODERADO" v-model="alumno['dniApo']" required></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el dni del APODERADO" v-model="alumno['dniApo']" required maxlength="8"></td>
                     </tr>
                     <tr>
                         <td>NOMBRES DEL APODERADO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el NOMBRES del APODERADO" v-model="alumno['nombApo']" required></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el NOMBRES del APODERADO" v-model="alumno['nombApo']" required maxlength="60"></td>
                     </tr>
                     <tr>
                         <td>APELLIDOS DEL APODERADO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el APELLIDOS del APODERADO" v-model="alumno['apeApo']"required></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el APELLIDOS del APODERADO" v-model="alumno['apeApo']"required maxlength="60"></td>
                     </tr>
                     <tr>
                         <td>ESCUELA:</td>

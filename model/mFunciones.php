@@ -61,10 +61,10 @@ where a.idAlu='{$id}';";
             $fileNameCmps = explode(".", $nombre_archivo);
             $Extension = strtolower(end($fileNameCmps));
 
-            if (move_uploaded_file($fileTmpPath, "./img/" . $datos["dniAlu"] . $Extension)) {
-                echo "El archivo ha sido cargado correctamente.";
+          if (move_uploaded_file($fileTmpPath,"../img/" . $datos["dniAlu"] .".". $Extension)) {
+               // echo "El archivo ha sido cargado correctamente.";
             } else {
-                echo "Ocurrió algún error al subir el fichero. No pudo guardarse.";
+               //   echo "Ocurrió algún error al subir el fichero. No pudo guardarse.";
             }
         }
 
@@ -116,10 +116,10 @@ where a.idAlu='{$id}';";
             $fileNameCmps = explode(".", $nombre_archivo);
             $Extension = strtolower(end($fileNameCmps));
 
-            if (move_uploaded_file($fileTmpPath, "./img/" . $datos["dniAlu"] . $Extension)) {
-                echo "El archivo ha sido cargado correctamente.";
+            if (move_uploaded_file($fileTmpPath,"../img/" . $datos["dniAlu"] .".". $Extension)) {
+             //     echo "El archivo ha sido cargado correctamente.";
             } else {
-                echo "Ocurrió algún error al subir el fichero. No pudo guardarse.";
+              //    echo "Ocurrió algún error al subir el fichero. No pudo guardarse.";
             }
             
         }
@@ -145,9 +145,9 @@ where a.idAlu='{$id}';";
         return $resp;
     }
 
-    function elimAlumno($id) {
-        $sql = "DELETE FROM `alumno` WHERE idAlu`='{$id}';";
-        $resp = $this->metodos->ejecutar($sql);
+    function    elimAlumno($id) {
+        $sql = "DELETE FROM `alumno` WHERE `idAlu`='{$id}';";
+        $resp = $this->metodos->ejecutar($sql,"ELIMINADO");
         return $resp;
     }
 

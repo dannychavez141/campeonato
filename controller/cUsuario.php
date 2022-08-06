@@ -9,6 +9,7 @@ include '../model/mConexion.php';
 include '../model/mMetodos.php';
 include '../model/mFunciones.php';
 
+
 $c = null;
 if (isset($_POST['c']) && $c == null) {
     $c = $_POST['c'];
@@ -53,12 +54,11 @@ switch ($c) {
         echo $modelo->crearDep($_POST);
         break;
     case 'crearCamp':
-        echo $modelo->crearDep($_POST);
+        echo $modelo->crearCamp($_POST);
         break;
     //modificacion
     case 'modiAlumnos':
-          print_r($_POST);
-     
+          //print_r($_POST);
         if (isset($_FILES['foto'])) {
            echo $modelo->modiAlumno($_POST,$_FILES['foto']);  
         }else{
@@ -74,8 +74,13 @@ switch ($c) {
     case 'modiCamp':
         echo $modelo->modiCamp($_POST);
         break;
+    //eliminar
+    case 'eliAlum':
+        echo $modelo->elimAlumno($_POST['idAlu']);
+        break;
     default:
         echo "no se recibio las variables";
+       
         break;
 }
 

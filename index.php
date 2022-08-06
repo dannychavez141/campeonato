@@ -66,7 +66,7 @@ include './header.php';
     var app = new Vue({
         el: "#app",
         data: {sesion: [], msj: "",
-            modo: "ini", alumnos: [], alumno: [], instituciones: [], institucion: [], campeonatos: [], campeonato: [], deportes: [], deporte: [],
+            modo: "alu", alumnos: [], alumno: [], instituciones: [], institucion: [], campeonatos: [], campeonato: [], deportes: [], deporte: [],
             busq: "", busqInst: "", busqDep: "", busqCamp: "", idDep: "0", idCamp: "0", idEsc: "0", op: "CREANDO"
         },
         methods: {
@@ -151,7 +151,8 @@ include './header.php';
                 }
 
             }, nuevoAlu()
-            {this.op = "CREANDO";
+            {
+                this.op = "CREANDO";
                 this.modo = "regalu";
                 this.alumno = [];
                 this.alumno['idDep'] = "1";
@@ -167,15 +168,15 @@ include './header.php';
             }, async ejecutarAlu()
             {
                 let urlApi = "./controller/cUsuario.php";
-                const params = new URLSearchParams();
+                const params = new FormData();
                 params.append('methods', 'POST');
                 params.append('idAlu', this.alumno['idAlu']);
                 let file = document.getElementById('foto').files[0];
-               // console.log(file);
+                // console.log(file);
                 if (file != null) {
                     params.append('foto', file);
                     params.append('ext', file.type);
-                }else{
+                } else {
                     params.append('ext', "0");
                 }
                 params.append('nombAlu', this.alumno['nombAlu']);
@@ -199,7 +200,7 @@ include './header.php';
                 }
 
                 try {
-                    let resp = await axios.post(urlApi, params,{headers: { 'Content-Type': 'multipart/form-data; charset=utf-8;  boundary=---------------------------974767299852498929531610575"' }});
+                    let resp = await axios.post(urlApi, params, {headers: {'Content-Type': 'multipart/form-data; charset=utf-8;  boundary=something'}});
 
                     let r = resp.data.trim();
                     console.log(r);
@@ -217,6 +218,126 @@ include './header.php';
                 } catch (e) {
                     console.log(e);
                 }
+            }, async elimAlu(dato)
+            {
+                Swal.fire({
+                    title: '¿Deseas Eliminar al alumno?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Si',
+                    denyButtonText: `Cancelar`,
+                }).then(async (result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        let urlApi = "./controller/cUsuario.php";
+                        const params = new FormData();
+                        params.append('methods', 'POST');
+                        params.append('idAlu', dato);
+                        params.append('c', "eliAlum");
+                        try {
+                            let resp = await axios.post(urlApi, params);
+                            let r = resp.data.trim();
+                            console.log(r);
+
+                            Swal.fire(r, '', 'info');
+
+                            app.getAlumnos();
+
+                        } catch (e) {
+                            console.log(e);
+                        }
+                    }
+                });
+
+            }, elegirCamp(dato)
+            {
+                this.op = "MODIFICAR";
+                this.campeonato = dato;
+
+            }
+            , limpCamp()
+            {
+                this.op = "CREANDO";
+                this.campeonato = [];
+
+            }, async ejecCamp()
+            {
+
+                let urlApi = "./controller/cUsuario.php";
+                const params = new FormData();
+                params.append('methods', 'POST');
+                params.append('idCamp', this.campeonato['idCamp']);
+                params.append('descrCamp', this.campeonato['descrCamp']);
+                params.append('finiCamp', this.campeonato['finiCamp']);
+                if (this.op == "CREANDO") {
+                    params.append('c', "crearCamp");
+                } else {
+                    params.append('c', "modiCamp");
+                }
+                try {
+                    let resp = await axios.post(urlApi, params);
+                    let r = resp.data.trim();
+                    console.log(r);
+
+                    Swal.fire(r, '', 'info');
+                    app.op = "CREANDO";
+                    app.campeonato = [];
+                    app.getCamp();
+
+                } catch (e) {
+                    console.log(e);
+                }
+
+
+            }, elegirEsc(dato)
+            {
+                this.op = "MODIFICAR";
+                this.institucion = dato;
+
+            }
+            , limpEsc()
+            {
+                this.op = "CREANDO";
+                this.institucion = [];
+
+            }, async ejecEsc()
+            {
+
+                let urlApi = "./controller/cUsuario.php";
+                const params = new FormData();
+                params.append('methods', 'POST');
+                params.append('idEsc', this.institucion['idEsc']);
+                params.append('descrEsc', this.institucion['descrEsc']);
+                params.append('dirEsc', this.institucion['dirEsc']);
+                if (this.op == "CREANDO") {
+                    params.append('c', "crearInst");
+                } else {
+                    params.append('c', "modiInst");
+                }
+                try {
+                    let resp = await axios.post(urlApi, params);
+                    let r = resp.data.trim();
+                    console.log(r);
+
+                    Swal.fire(r, '', 'info');
+                    app.op = "CREANDO";
+                    app.institucion = [];
+                    app.getInsti();
+
+                } catch (e) {
+                    console.log(e);
+                }
+
+
+            }, repTodos() {
+                let url = "./reportes/repEquipo.php?busq=" + this.busq;
+                url += "&idDep=" + this.idDep;
+                url += "&idCamp=" + this.idCamp;
+                url += "&idEsc=" + this.idEsc;
+                window.open(url, "REPORTE DE ALUMNOS REGISTRADOS", "width=600,height=600,scrollbars=NO")
+            }
+            , repUno(id) {
+                let url = "./reportes/repAlumno.php?id=" + id;
+                window.open(url, "REPORTE DE ALUMNO", "width=600,height=600,scrollbars=NO")
             }
 
 
