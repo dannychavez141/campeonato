@@ -39,7 +39,12 @@ switch ($c) {
         break;
     //creacion
     case 'crearAlumnos':
-        echo $modelo->crearAlumno($_POST);
+        if (isset($_FILES['foto'])) {
+           echo $modelo->crearAlumno($_POST,$_FILES['foto']);  
+        }else{
+             echo $modelo->crearAlumno($_POST,"0");  
+        }
+       
         break;
     case 'crearInst':
         echo $modelo->crearInst($_POST);
@@ -52,7 +57,13 @@ switch ($c) {
         break;
     //modificacion
     case 'modiAlumnos':
-        echo $modelo->modiAlumno($_POST);
+          print_r($_POST);
+     
+        if (isset($_FILES['foto'])) {
+           echo $modelo->modiAlumno($_POST,$_FILES['foto']);  
+        }else{
+             echo $modelo->modiAlumno($_POST,"0");  
+        }
         break;
     case 'modiInst':
         echo $modelo->modiInst($_POST);

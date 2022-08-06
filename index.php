@@ -66,7 +66,7 @@ include './header.php';
     var app = new Vue({
         el: "#app",
         data: {sesion: [], msj: "",
-            modo: "regalu", alumnos: [], alumno: [], instituciones: [], institucion: [], campeonatos: [], campeonato: [], deportes: [], deporte: [],
+            modo: "ini", alumnos: [], alumno: [], instituciones: [], institucion: [], campeonatos: [], campeonato: [], deportes: [], deporte: [],
             busq: "", busqInst: "", busqDep: "", busqCamp: "", idDep: "0", idCamp: "0", idEsc: "0", op: "CREANDO"
         },
         methods: {
@@ -151,7 +151,7 @@ include './header.php';
                 }
 
             }, nuevoAlu()
-            {
+            {this.op = "CREANDO";
                 this.modo = "regalu";
                 this.alumno = [];
                 this.alumno['idDep'] = "1";
@@ -171,9 +171,9 @@ include './header.php';
                 params.append('methods', 'POST');
                 params.append('idAlu', this.alumno['idAlu']);
                 let file = document.getElementById('foto').files[0];
-                console.log(file);
+               // console.log(file);
                 if (file != null) {
-                    params.append('foto', file, file.name);
+                    params.append('foto', file);
                     params.append('ext', file.type);
                 }else{
                     params.append('ext', "0");
@@ -199,7 +199,7 @@ include './header.php';
                 }
 
                 try {
-                    let resp = await axios.post(urlApi, params);
+                    let resp = await axios.post(urlApi, params,{headers: { 'Content-Type': 'multipart/form-data; charset=utf-8;  boundary=---------------------------974767299852498929531610575"' }});
 
                     let r = resp.data.trim();
                     console.log(r);
@@ -211,7 +211,7 @@ include './header.php';
                         Swal.fire("No se realizo ningun cambio, recuerde que los nros de DNI son unicos", '', 'error');
                     }
 
-                    app.getDatos();
+                    app.getAlumnos();
 
                     $("#btncerrar").click();
                 } catch (e) {

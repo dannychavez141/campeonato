@@ -28,7 +28,7 @@
                     <form method="POST" v-on:submit.prevent="login" >
                         <div class="card rounded-3 shadow-sm">
                             <div class="card-header py-3">
-                                <h3 class="my-0 fw-normal">Sistema de alquileres</h3>
+                                <h3 class="my-0 fw-normal">Sistema de campeonatos escolares</h3>
                                 <h4 class="my-0 fw-normal">INICIO DE SESION</h4>
                             </div>
                             <div class="card-body">

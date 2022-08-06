@@ -11,20 +11,20 @@
                 <table class="table table-borderless text-end">
                     <tr>
                         <td>DNI DEL ALUMNO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el dni del alumno" v-model="alumno['dniAlu']"></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el dni del alumno" v-model="alumno['dniAlu']" required></td>
                     </tr>
                     <tr>
                         <td>NOMBRES DEL ALUMNO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el NOMBRES del alumno" v-model="alumno['nombAlu']"></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el NOMBRES del alumno" v-model="alumno['nombAlu']" required></td>
                     </tr>
                     <tr>
                         <td>APELLIDOS DEL ALUMNO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el APELLIDOS del alumno" v-model="alumno['apeAlu']"></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el APELLIDOS del alumno" v-model="alumno['apeAlu']" required></td>
                     </tr>
                     <tr>
                         <td>SEXO:</td>
                         <td>
-                            <select class='form-select' v-model="alumno['idSexo']">
+                            <select class='form-select' v-model="alumno['idSexo']" required>
                                 <option value="1">MASCULINO</option>
                                 <option value="2">FEMENINO</option>
                             </select>
@@ -32,15 +32,15 @@
                     </tr>
                     <tr>
                         <td>FECHA DE NACIMIENTO DEL ALUMNO:</td>
-                        <td><input type="date" class="form-control" v-model="alumno['fnacAlu']"></td>
+                        <td><input type="date" class="form-control" v-model="alumno['fnacAlu']" required></td>
                     </tr>
                      <tr>
                         <td>PESO DEL ALUMNO:</td>
-                        <td><input type="number" step=".01"class="form-control" v-model="alumno['pesoAlu']"></td>
+                        <td><input type="number" step=".01"class="form-control" v-model="alumno['pesoAlu']" required></td>
                     </tr>
                     <tr>
                         <td>TALLA DEL ALUMNO:</td>
-                        <td><input type="number" step=".01" class="form-control" v-model="alumno['tallaAlu']"></td>
+                        <td><input type="number" step=".01" class="form-control" v-model="alumno['tallaAlu']" required></td>
                     </tr>
                     <tr>
                         <td>FOTO DEL ALUMNO:</td>
@@ -48,20 +48,20 @@
                     </tr>
                     <tr>
                         <td>DNI DEL APODERADO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el dni del APODERADO" v-model="alumno['dniApo']"></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el dni del APODERADO" v-model="alumno['dniApo']" required></td>
                     </tr>
                     <tr>
                         <td>NOMBRES DEL APODERADO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el NOMBRES del APODERADO" v-model="alumno['nombApo']"></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el NOMBRES del APODERADO" v-model="alumno['nombApo']" required></td>
                     </tr>
                     <tr>
                         <td>APELLIDOS DEL APODERADO:</td>
-                        <td><input type="text" class="form-control" placeholder="Escribe el APELLIDOS del APODERADO" v-model="alumno['apeApo']"></td>
+                        <td><input type="text" class="form-control" placeholder="Escribe el APELLIDOS del APODERADO" v-model="alumno['apeApo']"required></td>
                     </tr>
                     <tr>
                         <td>ESCUELA:</td>
                         <td>
-                            <select class='form-select' v-model="alumno['idEsc']">
+                            <select class='form-select' v-model="alumno['idEsc']" required>
                                 <option v-bind:value="dato['0']" v-for='dato in instituciones'>{{dato['1']}}</option>
                             </select>
                         </td>
@@ -69,7 +69,7 @@
                     <tr>
                         <td>CAMPEONATO:</td>
                         <td>
-                            <select class='form-select' v-model="alumno['idCamp']">
+                            <select class='form-select' v-model="alumno['idCamp']" required>
                                 <option v-bind:value="dato['0']" v-for='dato in campeonatos'>{{dato['1']}}</option>
                             </select>
                         </td>
@@ -77,7 +77,7 @@
                     <tr>
                         <td>DEPORTE:</td>
                         <td>
-                            <select class='form-select' v-model="alumno['idDep']">
+                            <select class='form-select' v-model="alumno['idDep']" required>
                                 <option v-bind:value="dato['0']" v-for='dato in deportes'>{{dato['1']}}</option>
                             </select>
                         </td>
