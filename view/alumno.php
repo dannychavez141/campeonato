@@ -9,6 +9,9 @@
                 <button type="button" class="btn btn-primary float-end" @click="repTodos">
                     Generar Reporte
                 </button>
+                <button type="button" class="btn btn-warning float-end" @click="repEval">
+                    Generar Reporte de evalaucion
+                </button>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -42,7 +45,7 @@
                     <div class="col-md-12 mt-3">
                         <div class="table-responsive ">
                             <table class="table justify-content-center">
-                                <tr><th>Datos de Alumno</th><th>Datos del Apoderado</th><th>Campeonato</th><th>Deporte</th><th>Institucion</th><th>Foto</th><th>Acciones</th></tr>
+                                <tr><th>Datos de Alumno</th><th>Datos del Apoderado</th><th>Campeonato</th><th>Deporte</th><th>Institucion</th><th>Foto</th><th>Evaluacion</th><th>Acciones</th></tr>
                                 <tr v-for="dato in alumnos" >
                                     <td>{{dato['nombAlu']+" "+dato['apeAlu']}}</td>
                                     <td>{{dato['nombApo']+" "+dato['apeApo']}}</td>
@@ -50,7 +53,15 @@
                                     <td>{{dato['descrDep']}}</td>
                                     <td>{{dato['descrEsc']}}</td>
                                     <td><img v-bind:src="'./img/'+dato['dniAlu']+'.'+dato['foto']" alt="alt" width="80px"/></td>
+                                    <td v-if="dato['eval']<11">
+
+                                        <input class="form-control text-danger" type="number" name="name" min="0" max="20" v-model="dato['eval']">
+                                    </td>
+                                    <td v-else><input class="form-control text-success" type="number" name="name" min="0" max="20" v-model="dato['eval']"></td>
                                     <td>
+                                        <button type="button" class="btn btn-success" @click="evaluar(dato)">
+                                            Cambiar Evaluacion
+                                        </button>
                                         <button type="button" class="btn btn-primary" @click="repUno(dato['idAlu'])">
                                             Generar Ficha
                                         </button>

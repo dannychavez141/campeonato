@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 06-08-2022 a las 07:04:58
+-- Tiempo de generación: 22-08-2022 a las 00:16:00
 -- Versión del servidor: 5.7.33
 -- Versión de PHP: 7.4.19
 
@@ -46,15 +46,17 @@ CREATE TABLE `alumno` (
   `pesoAlu` double(5,2) DEFAULT NULL,
   `tallaAlu` double(5,2) DEFAULT NULL,
   `idDep` int(11) NOT NULL,
-  `idSexo` int(11) DEFAULT '1'
+  `idSexo` int(11) DEFAULT '1',
+  `eval` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `alumno`
 --
 
-INSERT INTO `alumno` (`idAlu`, `nombAlu`, `apeAlu`, `dniAlu`, `fnacAlu`, `dniApo`, `nombApo`, `apeApo`, `foto`, `idEsc`, `idCamp`, `idUsu`, `pesoAlu`, `tallaAlu`, `idDep`, `idSexo`) VALUES
-(1, 'maria', 'pezo', '11111111', NULL, '22222222', 'pedro', 'perez', NULL, 1, 1, 1, 50.00, 152.33, 1, 1);
+INSERT INTO `alumno` (`idAlu`, `nombAlu`, `apeAlu`, `dniAlu`, `fnacAlu`, `dniApo`, `nombApo`, `apeApo`, `foto`, `idEsc`, `idCamp`, `idUsu`, `pesoAlu`, `tallaAlu`, `idDep`, `idSexo`, `eval`) VALUES
+(1, 'maria', 'pezo', '11111111', '2022-08-17', '22222222', 'pedro', 'perez', 'jpg', 1, 1, 1, 50.00, 152.33, 1, 1, 10),
+(2, 'Pedro', 'suares', '12345678', '2013-01-01', '12121212', 'pepe', 'suarez', 'jpg', 1, 1, 1, 54.00, 152.00, 1, 1, 17);
 
 -- --------------------------------------------------------
 
@@ -74,7 +76,7 @@ CREATE TABLE `campeonato` (
 --
 
 INSERT INTO `campeonato` (`idCamp`, `descrCamp`, `finiCamp`) VALUES
-(1, 'INTERESCPÑAR', NULL);
+(1, 'CAMPEONATO INTERESCOLAR', NULL);
 
 -- --------------------------------------------------------
 
@@ -147,7 +149,11 @@ INSERT INTO `usuario` (`idUsu`, `nombUsu`, `apeUsu`, `dniUsu`, `passUsu`) VALUES
 --
 ALTER TABLE `alumno`
   ADD PRIMARY KEY (`idAlu`),
-  ADD UNIQUE KEY `dniApo_UNIQUE` (`dniApo`);
+  ADD UNIQUE KEY `dniApo_UNIQUE` (`dniApo`),
+  ADD KEY `idUsu` (`idUsu`),
+  ADD KEY `idEsc` (`idEsc`),
+  ADD KEY `idCamp` (`idCamp`),
+  ADD KEY `idDep` (`idDep`);
 
 --
 -- Indices de la tabla `campeonato`
@@ -206,6 +212,19 @@ ALTER TABLE `escuela`
 --
 ALTER TABLE `usuario`
   MODIFY `idUsu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `alumno`
+--
+ALTER TABLE `alumno`
+  ADD CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`idUsu`) REFERENCES `usuario` (`idUsu`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `alumno_ibfk_2` FOREIGN KEY (`idEsc`) REFERENCES `escuela` (`idEsc`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `alumno_ibfk_3` FOREIGN KEY (`idCamp`) REFERENCES `campeonato` (`idCamp`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `alumno_ibfk_4` FOREIGN KEY (`idDep`) REFERENCES `deporte` (`idDep`) ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

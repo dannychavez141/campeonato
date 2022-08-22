@@ -36,6 +36,26 @@ where concat(a.nombAlu,a.apeAlu,a.dniAlu,a.dniApo,a.nombApo,a.apeApo) like '%{$d
         $resp = $this->metodos->consultarJson($sql);
         return $resp;
     }
+     function todosEval($datos) {
+        $sql = "SELECT * FROM alumno a 
+left join deporte d on a.idDep=d.idDep
+left join campeonato c on a.idCamp=c.idCamp
+left join escuela e on a.idEsc=e.idEsc
+where concat(a.nombAlu,a.apeAlu,a.dniAlu,a.dniApo,a.nombApo,a.apeApo) like '%{$datos['busq']}%' ";
+        if ($datos['idDep'] != "0")
+            $sql .= " and a.idDep='{$datos['idDep']}'";
+
+        if ($datos['idCamp'] != "0")
+            $sql .= " and a.idCamp='{$datos['idCamp']}'";
+
+        if ($datos['idEsc'] != "0")
+            $sql .= " and a.idEsc='{$datos['idEsc']}'";
+
+        $sql .= " order by a.eval desc;";
+// echo $sql;
+        $resp = $this->metodos->consultarJson($sql);
+        return $resp;
+    }
 
     function uno($id) {
         $sql = "SELECT * FROM alumno a 
@@ -216,5 +236,12 @@ where concat(descrDep) like '%{$datos['busq']}%' ";
         $resp = $this->metodos->ejecutar($sql,"MODIFICANDO");
         return $resp;
     }
+    
+     function modEval($datos) {
+        $sql = "UPDATE `alumno` SET `eval`='{$datos['eval']}' WHERE `idAlu`='{$datos['idAlu']}'";
+        $resp = $this->metodos->ejecutar($sql,"MODIFICANDO");
+        return $resp;
+    }
+    
 
 }

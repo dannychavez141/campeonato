@@ -78,6 +78,9 @@ switch ($c) {
     case 'eliAlum':
         echo $modelo->elimAlumno($_POST['idAlu']);
         break;
+     case 'modEval':
+        echo $modelo->modEval($_POST);
+        break;
     default:
         echo "no se recibio las variables";
        

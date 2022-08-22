@@ -335,10 +335,51 @@ include './header.php';
                 url += "&idEsc=" + this.idEsc;
                 window.open(url, "REPORTE DE ALUMNOS REGISTRADOS", "width=600,height=600,scrollbars=NO")
             }
+            , repEval() {
+                let url = "./reportes/repEval.php?busq=" + this.busq;
+                url += "&idDep=" + this.idDep;
+                url += "&idCamp=" + this.idCamp;
+                url += "&idEsc=" + this.idEsc;
+                window.open(url, "REPORTE DE ALUMNOS REGISTRADOS EVALUACION", "width=600,height=600,scrollbars=NO")
+            }
             , repUno(id) {
                 let url = "./reportes/repAlumno.php?id=" + id;
                 window.open(url, "REPORTE DE ALUMNO", "width=600,height=600,scrollbars=NO")
+            }, async evaluar(dato) {
+                console.log(dato);
+                Swal.fire({
+                    title: '¿Deseas Modificar la Evaluacion?',
+                    showDenyButton: true,
+                    showCancelButton: false,
+                    confirmButtonText: 'Guardar',
+                    denyButtonText: `Cancelar`,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        app.ejecModEval(dato);
+                        Swal.fire('Evaluacion registrada', '', 'success');
+                    } else if (result.isDenied) {
+
+                    }
+                });
+
+            }, async ejecModEval(dato) {
+                let urlApi = "./controller/cUsuario.php";
+                const params = new FormData();
+                params.append('methods', 'POST');
+                params.append('idAlu', dato['idAlu']);
+                params.append('eval', dato['eval']);
+                params.append('c', "modEval");
+
+                try {
+                    let resp = await axios.post(urlApi, params);
+                    let r = resp.data.trim();
+                    console.log(r);
+                } catch (e) {
+                    console.log(e.toString());
+                }
             }
+
 
 
 
